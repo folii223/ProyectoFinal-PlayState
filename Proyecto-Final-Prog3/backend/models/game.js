@@ -4,14 +4,19 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Game extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
+      // relacion N:N con User para favoritos
       Game.belongsToMany(models.User, {
         through: 'Favorite',
+        as: 'UserWhoFavorited',
+        foreignKey: 'gameId',
+        otherKey: 'userId'
+      });
+
+      // relacion N:N con User para la biblioteca
+      Game.belongsToMany(models.User, {
+        through: 'Library',
+        as: 'UserWhoOwn',
         foreignKey: 'gameId',
         otherKey: 'userId'
       });
