@@ -7,6 +7,7 @@ import { RegisterScreen } from './routes/RegisterScreen';
 import { InfoScreen } from './components/common/InfoScreen';
 
 
+
 // Componente padre que usa el componente hijo
 function App() {
   return (

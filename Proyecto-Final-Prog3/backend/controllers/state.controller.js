@@ -1,0 +1,1 @@
+const Juego = require('../models/game');
