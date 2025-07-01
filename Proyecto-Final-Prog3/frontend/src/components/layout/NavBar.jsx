@@ -1,7 +1,25 @@
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import logo from '../../assets/icons/joystick.png'
+import { useState} from "react";
+
 
 export const NavBar = () => {
+
+    const [search, setSearch] = useState('');
+    const navigate = useNavigate();
+
+    const handleInputChange = (e) => {
+        setSearch(e.target.value)
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (search.trim()) {
+        navigate(`/search?query=${encodeURIComponent(search)}`);
+        setSearch('');
+        }
+    };
+   
     return (
     <>
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -19,15 +37,18 @@ export const NavBar = () => {
                     <NavLink to='/library' className="nav-link">Biblioteca</NavLink>
                     </li>
                     <li className="nav-item dropdown">
-                    <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <NavLink className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Categorias
-                    </a>
+                    </NavLink>
                     <ul className="dropdown-menu">
-                        <li><NavLink className="dropdown-item" href="#">Action</NavLink></li>
-                        <li><NavLink className="dropdown-item" href="#">Shooter</NavLink></li>
-                        <li><NavLink className="dropdown-item" href="#">Puzzle</NavLink></li>
-                        <li><NavLink className="dropdown-item" href="#">RPG</NavLink></li>
-                        <li><NavLink className="dropdown-item" href="#">Adventure</NavLink></li>
+                        <li><NavLink to='/search?genre=action' className="dropdown-item">Accion</NavLink></li>
+                        <li><NavLink to='/search?genre=shooter' className="dropdown-item">Disparos</NavLink></li>
+                        <li><NavLink to='/search?genre=puzzle' className="dropdown-item">Rompecabezas</NavLink></li>
+                        <li><NavLink to='/search?genre=role-playing-games-rpg'className="dropdown-item">RPG</NavLink></li>
+                        <li><NavLink to='/search?genre=adventure' className="dropdown-item">Aventuras</NavLink></li>
+                        <li><NavLink to='/search?genre=sports' className="dropdown-item">Deportes</NavLink></li>
+                        <li><NavLink to='/search?genre=indie' className="dropdown-item">Indie</NavLink></li>
+                        <li><NavLink to='/search?genre=strategy' className="dropdown-item">Estrategia</NavLink></li>
                     </ul>
                     </li>
                     <li className="nav-item">
@@ -37,8 +58,8 @@ export const NavBar = () => {
                     <NavLink to="/register" className="nav-link" >Registrarse</NavLink>
                     </li>
                 </ul>
-                <form className="d-flex" role="search">
-                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                <form onSubmit={handleSubmit} className="d-flex" role="search">
+                    <input onChange={handleInputChange} className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
                     <button className="btn btn-outline-success" type="submit">Search</button>
                 </form>
                 </div>

@@ -8,12 +8,14 @@ module.exports = {
       const res = await fetch(`https://api.rawg.io/api/games?key=${API_KEY}`)
       const data = await res.json();
 
+      const state = ["Completado", "En progreso", "No iniciado"];
+
       const  games = data.results.map(game => ({
         title: game.name,
         image: game.background_image,
-        description: game.description_raw,
-        state: "completed",
-        hoursplayed: 12,
+        genres: game.genres.map(genre => genre.name).join(','),
+        state: "No iniciado",
+        hoursplayed: game.playtime,
         createdAt: new Date(),
         updatedAt: new Date()
       }));

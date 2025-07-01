@@ -25,10 +25,16 @@ module.exports = (sequelize, DataTypes) => {
   Game.init({
     title: DataTypes.STRING,
     image: DataTypes.STRING,
-    description: DataTypes.STRING,
-    state: DataTypes.STRING,
+    genres: DataTypes.STRING,
+    state: { 
+      type:DataTypes.STRING,
+      defaultValue: "No iniciado",
+      validate: {
+      isIn: [['Completado', 'En progreso', 'No iniciado']]
+    }},
     hoursplayed: DataTypes.INTEGER
-  }, {
+  }, 
+  {
     sequelize,
     modelName: 'Game',
   });

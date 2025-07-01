@@ -23,6 +23,10 @@ a:hover {
   color: #a553f2;
 }
 
+p {
+  color: #747bff;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

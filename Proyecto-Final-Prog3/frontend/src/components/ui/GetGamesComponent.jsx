@@ -15,7 +15,7 @@ export const GetGamesComponent = () => {
         <div className="game__container">
             <h1 className="game__title">LISTA DE VIDEOJUEGOS</h1>
             {loading ? (
-                <p>Cargando datos</p>
+                <p>Cargando datos...</p>
             ) : games.length > 0 ? (
                 <ul className="game">
                     {games.map((game) =>(
