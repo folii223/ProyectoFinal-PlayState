@@ -14,7 +14,7 @@ router.get('/health', (req, res) => {
 // Ruta de ejemplo
 router.get('/test', (req, res) => {
   res.json({
-    message: 'Endpoint de prueba',
+    message: 'Endpoint de prueba jaja',
     data: {
       backend: 'Express',
       database: 'PostgreSQL',

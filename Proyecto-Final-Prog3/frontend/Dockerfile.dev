@@ -10,6 +10,7 @@ WORKDIR /app
 ENV CHOKIDAR_USEPOLLING=true
 ENV WATCHPACK_POLLING=true
 ENV FAST_REFRESH=true
+ENV PATH /app/node_modules/.bin:$PATH
 
 # Copiar package.json primero para aprovechar cache de Docker
 COPY package*.json ./
@@ -22,6 +23,7 @@ COPY . .
 
 # Exponer puerto
 EXPOSE 3000
+
 
 # Comando con hot reload habilitado
 CMD ["npm", "start"]
