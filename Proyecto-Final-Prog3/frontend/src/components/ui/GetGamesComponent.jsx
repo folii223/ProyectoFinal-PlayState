@@ -21,19 +21,17 @@ export const GetGamesComponent = () => {
                     {games.map((game) =>(
                         <> 
                         
-                            <li className="game__li" key={game.id} onClick={() => handleClick(game.id)}> 
+                            <li className="game__li"> 
                                 <NavLink to={`/info/${game.id}`}>
                                     <div className="game__info"> 
-                                    <img className="game__img" src={`${game.background_image}`}  alt={`${game.name}`} />
+                                    <img  key={game.id} onClick={() => handleClick(game.id)} className="game__img" src={`${game.background_image}`}  alt={`${game.name}`} />
                                         <h4 className="game__name">{game.name}</h4>
-                                        {/* <p>{game.released}</p> */}
                                     </div>
                                 </NavLink>
                                     <div className="action__container">
                                         <button className="btn"  alt='Añadir a favoritos'><i className="fa-solid fa-star"></i></button>
                                         <button className="btn"  alt='Añadir a la biblioteca'><i className="fa-regular fa-bookmark"></i></button>
                                     </div>
-                                
                             </li>
                         
                         </>

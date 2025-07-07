@@ -19,10 +19,10 @@ export const GetResultsComponent = () => {
         ) : games.length > 0 ? (
             <ul className="game">
             {games.map((game) => (
-                <li className="game__li" key={game.id} onClick={() => handleClick(game.id)}>
+                <li className="game__li">
                 <NavLink to={`/info/${game.id}`}>
                     <div className="game__info">
-                    <img className="game__img" src={game.background_image} alt={game.name} />
+                    <img key={game.id} onClick={() => handleClick(game.id)} className="game__img" src={game.background_image} alt={game.name} />
                     <h4 className="game__name">{game.name}</h4>
                     </div>
                 </NavLink>

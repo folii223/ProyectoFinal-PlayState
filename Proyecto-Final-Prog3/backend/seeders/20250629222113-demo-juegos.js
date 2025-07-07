@@ -11,6 +11,7 @@ module.exports = {
       const state = ["Completado", "En progreso", "No iniciado"];
 
       const  games = data.results.map(game => ({
+        id: game.id,
         title: game.name,
         image: game.background_image,
         genres: game.genres.map(genre => genre.name).join(','),
