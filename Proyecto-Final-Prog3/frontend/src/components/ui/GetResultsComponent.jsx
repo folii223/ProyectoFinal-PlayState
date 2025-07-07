@@ -10,6 +10,22 @@ export const GetResultsComponent = () => {
     const navigate = useNavigate();
 
     const handleClick = (id) => navigate(`/info/${id}`);
+    const handleSaveGame = async (game) => {
+        const res = await fetch('http://localhost:3001/api/games' , {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({
+                id: game.id,
+                title: game.name,
+                image: game.background_image,
+                genres: game.genres.map(g => g.name).join(','),
+                hoursplayed: game.playtime
+            })
+        })
+
+        const data = await res.json();
+        alert(data.message);
+    }
 
     return (
         <div className="game__container">
@@ -28,7 +44,7 @@ export const GetResultsComponent = () => {
                 </NavLink>
                 <div className="action__container">
                     <button className="btn"><i className="fa-solid fa-star"></i></button>
-                    <button className="btn"><i className="fa-regular fa-bookmark"></i></button>
+                    <button onClick={() => handleSaveGame(game)} className="btn"><i className="fa-regular fa-bookmark"></i></button>
                 </div>
                 </li>
             ))}

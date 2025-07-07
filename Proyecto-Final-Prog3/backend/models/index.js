@@ -1,5 +1,5 @@
 // backend/models/index.js
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const config = require('../config/database');
 
 const env = process.env.NODE_ENV || 'development';
@@ -19,7 +19,11 @@ const sequelize = new Sequelize(
   }
 );
 
-module.exports = {
-  sequelize,
-  Sequelize
-};
+const Game = require('./entities/game')(sequelize, DataTypes);
+
+const db = {};
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+db.Game = Game;
+
+module.exports = db;

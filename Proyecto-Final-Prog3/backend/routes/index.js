@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const {getAllGames, getGameByID, saveGame} = require('../controllers/game.controller');
 
 // Ruta de prueba
 router.get('/health', (req, res) => {
@@ -14,7 +15,7 @@ router.get('/health', (req, res) => {
 // Ruta de ejemplo
 router.get('/test', (req, res) => {
   res.json({
-    message: 'Endpoint de prueba jaja',
+    message: 'Endpoint de prueba 1',
     data: {
       backend: 'Express',
       database: 'PostgreSQL',
@@ -22,5 +23,10 @@ router.get('/test', (req, res) => {
     }
   });
 });
+
+
+//Rutas de juego
+router.post('/games', saveGame);
+router.get('/games/:id', getGameByID);
 
 module.exports = router;
