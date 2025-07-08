@@ -16,6 +16,15 @@ const getGameByID = async (req,res) => {
     }
 };
 
+const getGame = async (req, res) => {
+  try{
+    const games = await Game.findAll();
+      res.json({games})
+  }catch(error){
+    res.status(404).json({error:"No se encontraron los juegos"})
+  }
+}
+
 const saveGame = async (req, res) => {
   try {
     const { id, title, image, genres } = req.body;
@@ -36,5 +45,6 @@ const saveGame = async (req, res) => {
 
 module.exports = {
     getGameByID,
-    saveGame
+    saveGame,
+    getGame
 }

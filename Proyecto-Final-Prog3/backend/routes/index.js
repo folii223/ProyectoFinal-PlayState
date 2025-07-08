@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const {getAllGames, getGameByID, saveGame} = require('../controllers/game.controller');
+const {getGame, getGameByID, saveGame} = require('../controllers/game.controller');
+
 
 // Ruta de prueba
 router.get('/health', (req, res) => {
@@ -28,5 +29,6 @@ router.get('/test', (req, res) => {
 //Rutas de juego
 router.post('/games', saveGame);
 router.get('/games/:id', getGameByID);
+router.get('/games', getGame);
 
 module.exports = router;
