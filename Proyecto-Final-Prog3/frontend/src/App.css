@@ -4,6 +4,13 @@
   margin: 0;
 }
 
+.lineCut {
+  width: 80%;
+  height: 1px;
+  background-color: #fff;
+  margin: 20px;
+}
+
 /* BARRA DE NAVEGACION */
 
 .navbar__container {
@@ -46,6 +53,7 @@
   font-size: 30px;
   margin: 40px 0px 40px 0px;
   text-align: center;
+  color: #fff;
 }
 
 .game {
@@ -91,6 +99,7 @@
 }
 
 .game__name {
+  color: #fff;
   position: absolute;
   font-size: 15px;
   margin: 10px;
@@ -118,12 +127,8 @@
   border: none;
 }
 
-.fa-star, .fa-bookmark, .fa-thumbs-up, .fa-thumbs-down {
+.fa-bookmark, .fa-thumbs-up, .fa-thumbs-down {
   color: #838383;
-}
-
-.fa-star:hover {
-  color: #eedb33;
 }
 
 .fa-bookmark:hover {
@@ -135,12 +140,24 @@
 }
 
 .fa-thumbs-down:hover {
-  color: rgb(170, 36, 36);
+  color: #aa2424;
+}
+
+.fa-trash {
+  color: #fff;
+  font-size: 15px;
+}
+
+.fa-trash:hover {
+  color: #aa2424;
 }
 
 
+/*VISTA DE BIBLIOTECA*/
 
-
+.library__title {
+  margin-top: 20px;
+}
 
 /* VISTA DE INFORMACION ACERCA DEL JUEGO */
 
@@ -204,4 +221,23 @@
   gap: 20px;
   padding: 20px;
   color: #6086b1;
+}
+
+.comment__box {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 300px;
+  border: 2px solid #2a7eec;
+  padding: 20px;
+}
+
+.comment__text {
+  width: 100%;
+  height: 150px;
+}
+
+.comment__submit {
+  background-color: #2a7eec;
+  color: #fff;
 }

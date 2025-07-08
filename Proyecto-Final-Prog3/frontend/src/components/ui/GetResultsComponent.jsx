@@ -1,4 +1,4 @@
-import { useSearchParams, useNavigate, NavLink } from "react-router-dom";
+import { useSearchParams, NavLink } from "react-router-dom";
 import { useSearch } from "../../hooks/useSearch";
 
 export const GetResultsComponent = () => {
@@ -7,9 +7,8 @@ export const GetResultsComponent = () => {
     const query = searchParams.get("query");
     const genre = searchParams.get("genre");
     const { games, loading } = useSearch(query, genre);
-    const navigate = useNavigate();
 
-    const handleClick = (id) => navigate(`/info/${id}`);
+
     const handleSaveGame = async (game) => {
         const res = await fetch('http://localhost:3001/api/games' , {
             method: 'POST',
@@ -38,13 +37,12 @@ export const GetResultsComponent = () => {
                 <li className="game__li">
                 <NavLink to={`/info/${game.id}`}>
                     <div className="game__info">
-                    <img key={game.id} onClick={() => handleClick(game.id)} className="game__img" src={game.background_image} alt={game.name} />
+                    <img key={game.id} className="game__img" src={game.background_image} alt={game.name} />
                     <h4 className="game__name">{game.name}</h4>
                     </div>
                 </NavLink>
                 <div className="action__container">
-                    <button className="btn"><i className="fa-solid fa-star"></i></button>
-                    <button onClick={() => handleSaveGame(game)} className="btn"><i className="fa-regular fa-bookmark"></i></button>
+                    <button onClick={() => handleSaveGame(game)} className="btn"><i className="fa-solid fa-bookmark"></i></button>
                 </div>
                 </li>
             ))}

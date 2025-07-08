@@ -43,8 +43,28 @@ const saveGame = async (req, res) => {
   }
 };
 
+const deleteGame = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const deleted = await Game.destroy({
+        where: {id:id}
+      });
+
+      if(deleted){
+        res.status(200).json({message: "Elemento eliminado correctamente"});
+      }
+      else {
+        res.status(404).json({message: "JUego no encontrado"})
+      }
+    }catch(error){
+      console.log("Error al eliminar el juego", error);
+      res.status(500).json({message: "Error interno del servidor"});
+    }
+}
+
 module.exports = {
     getGameByID,
     saveGame,
-    getGame
+    getGame, 
+    deleteGame
 }

@@ -8,7 +8,7 @@ export const useGames = () => {
 
     const fetchApi = async () => {
         try {
-            const res = await fetch(`https://api.rawg.io/api/games?key=${API_KEY}`)
+            const res = await fetch(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=40`)
             const data = await res.json();
             console.log(data); //En consola aparecen varios atributos, colocar el que dice results para que te traiga los juegos
             setGames(data.results);//trae 20 juegos

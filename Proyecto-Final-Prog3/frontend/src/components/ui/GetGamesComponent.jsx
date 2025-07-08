@@ -1,13 +1,25 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import { useGames } from "../../hooks/useGames"
 
 export const GetGamesComponent = () => {
 
     const {games, loading} = useGames();
-    const navigate = useNavigate();
 
-    const handleClick = (id) => {
-        navigate(`/info/${id}`);
+    const handleSaveGame = async (game) => {
+        const res = await fetch('http://localhost:3001/api/games' , {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({
+                id: game.id,
+                title: game.name,
+                image: game.background_image,
+                genres: game.genres.map(g => g.name).join(','),
+                hoursplayed: game.playtime
+            })
+        })
+
+        const data = await res.json();
+        alert(data.message);
     };
 
     return (
@@ -19,23 +31,17 @@ export const GetGamesComponent = () => {
             ) : games.length > 0 ? (
                 <ul className="game">
                     {games.map((game) =>(
-                        <> 
-                        
-                            <li className="game__li"> 
+                            <li key={game.id} className="game__li"> 
                                 <NavLink to={`/info/${game.id}`}>
                                     <div className="game__info"> 
-                                    <img  key={game.id} onClick={() => handleClick(game.id)} className="game__img" src={`${game.background_image}`}  alt={`${game.name}`} />
+                                    <img  key={game.id} className="game__img" src={`${game.background_image}`}  alt={`${game.name}`} />
                                         <h4 className="game__name">{game.name}</h4>
                                     </div>
                                 </NavLink>
                                     <div className="action__container">
-                                        <button className="btn"  alt='Añadir a favoritos'><i className="fa-solid fa-star"></i></button>
-                                        <button className="btn"  alt='Añadir a la biblioteca'><i className="fa-regular fa-bookmark"></i></button>
+                                        <button onClick={() => handleSaveGame(game)} className="btn"  alt='Añadir a la biblioteca'><i className="fa-solid fa-bookmark"></i></button>
                                     </div>
                             </li>
-                        
-                        </>
-                        
                     ))}
                 </ul>
                 ):(

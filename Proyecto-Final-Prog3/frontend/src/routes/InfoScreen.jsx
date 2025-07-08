@@ -1,5 +1,5 @@
-import {useGamesID} from '../../hooks/useGamesID'
-import { NavBar } from '../layout/NavBar';
+import {useGamesID} from '../hooks/useGamesID'
+import { NavBar } from '../components/layout/NavBar';
 
 export const InfoScreen = () => {
 
@@ -24,7 +24,6 @@ export const InfoScreen = () => {
                             <div className='info__rating'>
                                 <button className='btn'><i className="fa-regular fa-thumbs-up"></i></button>
                                 <button className='btn'><i className="fa-regular fa-thumbs-down"></i></button>
-                                <button className='btn'><i className="fa-solid fa-star"></i></button>
                                 <button className='btn'><i className="fa-regular fa-bookmark"></i></button>
                             </div>
                     </div>
@@ -41,6 +40,13 @@ export const InfoScreen = () => {
                         
                     ) 
                     }
+                
+                    <div className='comment__box'>
+                        <form className='comment' action="#">
+                            <textarea className='comment__text' name="comment" id="comment"></textarea>
+                            <button className='comment__submit'>Guardar comentario</button>
+                        </form>
+                    </div>
                 </div>
             } 
         </>

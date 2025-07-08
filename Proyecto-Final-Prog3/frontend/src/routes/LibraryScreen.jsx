@@ -1,23 +1,34 @@
 import {NavBar} from '../components/layout/NavBar'
 import { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export const LibraryScreen = () => {
   
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
   
-  const handleClick = (id) => {
-      navigate(`/info/${id}`);
-      };
+  const handleDeleteGame = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:3001/api/games/${id}`, {
+        method: 'DELETE',
+        });
+      if (res.ok) {
+      setGames(games.filter(game => game.id !== id));
+      console.log('Juego eliminado correctamente');
+      }
+      else {
+      console.error("Error al eliminar el juego")
+      }
+    }
+    catch(error) {
+      console.error("Error al eliminar juego", error);
+    }
+  };
 
   useEffect(() =>{
-    const fetchLibrary = async () => {
-
-    
+    const fetchLibrary = async (game) => {
     try{
-      const res = await fetch ('http://localhost:3001/api/games')
+      const res = await fetch ('http://localhost:3001/api/games');
       const data = await res.json();
       setGames(data.games)
       console.log(data)
@@ -30,27 +41,31 @@ export const LibraryScreen = () => {
   };
   fetchLibrary();
   },[]);
+
   return (
     <>
-        
-        
-
-        <NavBar />
-      <div className="gamecontainer">
-        <h1>Biblioteca</h1>
+      <NavBar />
+      <div className="game__container">
+        <h1 className='library__title'>Biblioteca</h1>
+        <div className='lineCut'></div>
         {loading ? (
           <p>Cargando biblioteca...</p>
         ) : games.length > 0 ? (
           <ul className="game">
             {games.map((game) => (
               <li key={game.id} className="game__li">
-                <div className="game__info">
-                  <img
-                    className="game__img"
-                    src={game.image}
-                    alt={game.title}
-                  />
-                  <h4 className="game__name">{game.title}</h4>
+                <NavLink to={`/info/${game.id}`}>
+                  <div className="game__info">
+                    <img 
+                      className="game__img"
+                      src={game.image}
+                      alt={game.title}
+                    />
+                    <h4 className="game__name">{game.title}</h4>
+                  </div>
+                </NavLink>
+                <div className="action__container">
+                    <button onClick={() => handleDeleteGame(game.id)} className="btn"><i className="fa-solid fa-trash"></i></button>
                 </div>
               </li>
             ))}

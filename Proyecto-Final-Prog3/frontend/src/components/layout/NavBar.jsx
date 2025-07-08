@@ -51,12 +51,6 @@ export const NavBar = () => {
                         <li><NavLink to='/search?genre=strategy' className="dropdown-item">Estrategia</NavLink></li>
                     </ul>
                     </li>
-                    <li className="nav-item">
-                    <NavLink to="/login" className="nav-link" >Iniciar Sesion</NavLink>
-                    </li>
-                    <li className="nav-item">
-                    <NavLink to="/register" className="nav-link" >Registrarse</NavLink>
-                    </li>
                 </ul>
                 <form onSubmit={handleSubmit} className="d-flex" role="search">
                     <input onChange={handleInputChange} className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
