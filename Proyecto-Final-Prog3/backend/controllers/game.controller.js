@@ -36,7 +36,7 @@ const saveGame = async (req, res) => {
     if (created) {
       res.status(201).json({ message: "Juego guardado exitosamente", game });
     } else {
-      res.status(200).json({ message: "El juego ya existía en la base de datos", game });
+      res.status(200).json({ message: "El juego ya existe en tu biblioteca", game });
     }
   } catch (error) {
     res.status(500).json({ error: "No se pudo guardar el juego", message: error.message });
@@ -54,7 +54,7 @@ const deleteGame = async (req, res) => {
         res.status(200).json({message: "Elemento eliminado correctamente"});
       }
       else {
-        res.status(404).json({message: "JUego no encontrado"})
+        res.status(404).json({message: "Juego no encontrado"})
       }
     }catch(error){
       console.log("Error al eliminar el juego", error);

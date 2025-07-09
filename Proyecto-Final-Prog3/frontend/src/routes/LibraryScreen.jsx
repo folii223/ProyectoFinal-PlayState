@@ -45,7 +45,7 @@ export const LibraryScreen = () => {
   return (
     <>
       <NavBar />
-      <div className="game__container">
+      <div className="library__container">
         <h1 className='library__title'>Biblioteca</h1>
         <div className='lineCut'></div>
         {loading ? (
@@ -65,8 +65,10 @@ export const LibraryScreen = () => {
                   </div>
                 </NavLink>
                 <div className="action__container">
-                    <button onClick={() => handleDeleteGame(game.id)} className="btn"><i className="fa-solid fa-trash"></i></button>
+                    <input className='input__state' type="text" value={"Pendiente"} disabled />
+                    <input className='input__hours' type="text" value={"0 hs"} disabled />
                 </div>
+                <button onClick={() => handleDeleteGame(game.id)} className="delete__btn"><i className="fa-solid fa-trash"></i></button>
               </li>
             ))}
           </ul>
