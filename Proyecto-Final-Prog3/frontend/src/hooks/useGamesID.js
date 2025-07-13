@@ -13,7 +13,6 @@ export const useGamesID = () => {
       try {
         const res = await fetch(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`);
         const data = await res.json();
-        console.log("Datos de RAWG API:", data);
         setGameID(data);
       } catch (error) {
         console.log('Error al traer la info del juego', error);
@@ -26,7 +25,6 @@ export const useGamesID = () => {
         const res = await fetch(`http://localhost:3001/api/games/${id}`);
         if (res.ok) {
           const data = await res.json();
-          console.log("Datos locales:", data);
           setLocalGameData(data.games);
         }
       } catch (error) {

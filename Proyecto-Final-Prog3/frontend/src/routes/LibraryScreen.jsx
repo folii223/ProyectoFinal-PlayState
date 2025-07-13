@@ -1,4 +1,3 @@
-import {NavBar} from '../components/layout/NavBar'
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -44,7 +43,6 @@ export const LibraryScreen = () => {
 
   return (
     <>
-      <NavBar />
       <div className="library__container">
         <h1 className='library__title'>Biblioteca</h1>
         <div className='lineCut'></div>
