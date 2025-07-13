@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getGame, getGameByID, saveGame, deleteGame, saveState} = require('../controllers/game.controller');
+const {getGame, getGameByID, saveGame, deleteGame, saveState, saveComment} = require('../controllers/game.controller');
 
 
 // Ruta de prueba
@@ -34,5 +34,6 @@ router.delete('/games/:id' , deleteGame)
 
 //Rutas de funcionalidades
 router.put('/games/:id', saveState);
+router.put('/games/:id/comment', saveComment);
 
 module.exports = router;

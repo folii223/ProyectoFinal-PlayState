@@ -82,6 +82,30 @@ const saveState = async(req,res) =>{
     res.status(500).json({message: "No se pudo guardar el estado"})
   }
 }
+//Agrego el controller para guardar el comentario
+const saveComment = async(req,res) =>{
+  try {
+    const {id} = req.params;
+    const {comment} = req.body;
+    
+    console.log("Guardando comentario:", comment, "para juego:", id);
+    
+    const [commentSaved] = await Game.update(
+      {comment: comment},
+      {where: {id: id}}
+    );
+
+    if (commentSaved !== 0) {
+      res.status(200).json({message: "Comentario guardado correctamente", comment, "Juego con id": id});
+    } else {
+      res.status(404).json({message: "Juego no encontrado"});
+    }
+
+  } catch (error) {
+    console.log("Error al guardar el comentario:", error);
+    res.status(500).json({message: "No se pudo guardar el comentario"})
+  }
+}
 
 
 module.exports = {
@@ -89,5 +113,6 @@ module.exports = {
     saveGame,
     getGame, 
     deleteGame,
-    saveState
+    saveState,
+    saveComment
 }

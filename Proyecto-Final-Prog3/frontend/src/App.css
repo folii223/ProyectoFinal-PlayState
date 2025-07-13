@@ -343,6 +343,25 @@ input[value="Completado"]{
   border: 1px solid #2a7eec
   }
 
+.comment__display {
+  width: 100%;
+  min-height: 70px;
+  background-color: #262d3b;
+  color: #fff;
+  padding: 10px;
+  border: 1px solid #2a7eec;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.comment__text--readonly {
+  color: #fff;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
 .comment__btn {
   display: flex;
   gap: 20px;

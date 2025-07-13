@@ -9,6 +9,8 @@ export const InfoScreen = () => {
     const [state, setState] = useState(()=>{
         return localStorage.getItem("Seleccionado") || "Pendiente";
     });
+    const [comment, setComment] = useState("");
+    const [isEditingComment, setIsEditingComment] = useState(false);
 
     const handleSubmit = async(e)=> {
         e.preventDefault();
@@ -22,21 +24,106 @@ export const InfoScreen = () => {
     }
 
     const updateState = async (id) => {
-        const res = await fetch(`http://localhost:3001/api/games/${id}`, {
-            method: 'PUT',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({
-                state: state
+        try {
+            // Me aseguro de que el juego existe en la base de datos antes de actualizar el estado
+            await ensureGameExists(id);
+            
+            //Actualizar el estado
+            const res = await fetch(`http://localhost:3001/api/games/${id}`, {
+                method: 'PUT',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({
+                    state: state
+                })
             })
-        })
-        const data = await res.json();
-        console.log("Estado modificado correctamente", data);
+            const data = await res.json();
+            console.log("Estado modificado correctamente", data);
+        } catch (error) {
+            console.error("Error al actualizar estado:", error);
+        }
+    }
+
+    const handleCommentSubmit = async(e) => {
+        e.preventDefault();
+        if(comment.trim()) {
+            await saveComment(gameID.id);
+        }
+    }
+
+    const handleCommentChange = (e) => {
+        setComment(e.target.value);
+    }
+
+    const handleEditComment = () => {
+        setIsEditingComment(true);
+    }
+
+    const saveComment = async (id) => {
+        try {
+            // Me aseguro de que el juego existe en la base de datos
+            await ensureGameExists(id);
+            
+            //Guardar el comentario
+            const res = await fetch(`http://localhost:3001/api/games/${id}/comment`, {
+                method: 'PUT',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({
+                    comment: comment
+                })
+            })
+            const data = await res.json();
+            console.log("Comentario guardado correctamente", data);
+            alert(data.message);
+            setIsEditingComment(false); // Cambiar a modo solo lectura
+        } catch (error) {
+            console.error("Error al guardar comentario:", error);
+            alert("Error al guardar el comentario");
+        }
+    }
+
+    const ensureGameExists = async (id) => {
+        try {
+            // Verificar si el juego ya existe en la base de datos
+            const checkRes = await fetch(`http://localhost:3001/api/games/${id}`);
+            
+            if (!checkRes.ok) {
+                // Si no existe, crearlo primero
+                const saveRes = await fetch('http://localhost:3001/api/games', {
+                    method: 'POST',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({
+                        id: gameID.id,
+                        title: gameID.name,
+                        image: gameID.background_image,
+                        genres: gameID.genres?.map(g => g.name).join(',') || '',
+                        state: 'Pendiente',
+                        comment: '',
+                        hoursplayed: gameID.playtime || 0
+                    })
+                });
+                
+                if (!saveRes.ok) {
+                    throw new Error('No se pudo crear el juego en la base de datos');
+                }
+            }
+        } catch (error) {
+            console.error("Error al verificar/crear juego:", error);
+            throw error;
+        }
     }
 
     useEffect(() => {
         console.log("gameID cargado:", gameID);
+        
         if(gameID && gameID.state){
             setState(gameID.state)
+        }
+        
+        if(gameID && gameID.comment && gameID.comment.trim() !== ""){
+            setComment(gameID.comment)
+            setIsEditingComment(false); // Si ya hay comentario, mostrar en modo solo lectura
+        } else {
+            setIsEditingComment(true); // Si no hay comentario, mostrar en modo edición
         }
     }, [gameID]);
     
@@ -80,14 +167,34 @@ export const InfoScreen = () => {
                         <div className='register__container'>
                         
                         <div className='comment__container'>
-                            <form className='comment' action="#">
-                                <h4 className='comment__title'>Calificar</h4>
-                                <textarea className='comment__text' name="comment" id="comment" placeholder='¿Que te parecio este juego?'></textarea>
-                                <div className='comment__btn'>
-                                    <button className='btn__submit'><i className="fa-solid fa-paper-plane"></i></button>
-                                    <button className='btn__edit'><i className="fa-solid fa-pen"></i></button>
-                                </div>
-                            </form>
+                            <h4 className='comment__title'>Calificar</h4>
+                            
+                            {isEditingComment ? (
+                                // Modo edición: mostrar textarea y formulario
+                                <form className='comment' onSubmit={handleCommentSubmit}>
+                                    <textarea 
+                                        className='comment__text' 
+                                        name="comment" 
+                                        id="comment" 
+                                        placeholder='¿Que te parecio este juego?'
+                                        value={comment}
+                                        onChange={handleCommentChange}
+                                    ></textarea>
+                                    <div className='comment__btn'>
+                                        <button className='btn__submit' type="submit"><i className="fa-solid fa-paper-plane"></i></button>
+                                    </div>
+                                </form>
+                            ) : (
+                                // Modo solo lectura: mostrar texto fijo y botón de editar
+                                <>
+                                    <div className='comment__display'>
+                                        <p className='comment__text--readonly'>{comment || "No hay comentario"}</p>
+                                    </div>
+                                    <div className='comment__btn'>
+                                        <button className='btn__edit' type="button" onClick={handleEditComment}><i className="fa-solid fa-pen"></i></button>
+                                    </div>
+                                </>
+                            )}
                         </div>
 
                         <div className='state__container'>

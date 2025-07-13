@@ -14,10 +14,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       image: {
-        type:sequelize.STRING
+        type: Sequelize.STRING
       },
       genres: {
-        type:sequelize.STRING
+        type: Sequelize.STRING
       },
       state: {
         type: Sequelize.STRING
@@ -26,7 +26,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       comment: {
-        type: sequelize.STRING
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
