@@ -1,10 +1,46 @@
 import {useGamesID} from '../hooks/useGamesID'
 import { NavBar } from '../components/layout/NavBar';
+import { useEffect, useState } from 'react';
 
 export const InfoScreen = () => {
 
 
     const {gameID} = useGamesID()
+    const [state, setState] = useState(()=>{
+        return localStorage.getItem("Seleccionado") || "Pendiente";
+    });
+
+    const handleSubmit = async(e)=> {
+        e.preventDefault();
+        await updateState(gameID.id);
+    }
+
+    const inputChange = async (e) => {
+        const value = e.target.value;
+        setState(value);
+        localStorage.setItem("Seleccionado",value);
+    }
+
+    const updateState = async (id) => {
+        const res = await fetch(`http://localhost:3001/api/games/${id}`, {
+            method: 'PUT',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({
+                state: state
+            })
+        })
+        const data = await res.json();
+        console.log("Estado modificado correctamente", data);
+    }
+
+    useEffect(() => {
+        console.log("gameID cargado:", gameID);
+        if(gameID && gameID.state){
+            setState(gameID.state)
+        }
+    }, [gameID]);
+    
+
 
     return (
         <>
@@ -41,7 +77,7 @@ export const InfoScreen = () => {
                     ) 
                     }
                 
-                    <div className='register__container'>
+                        <div className='register__container'>
                         
                         <div className='comment__container'>
                             <form className='comment' action="#">
@@ -55,30 +91,30 @@ export const InfoScreen = () => {
                         </div>
 
                         <div className='state__container'>
-                            <form action="">
+                            <form onSubmit={handleSubmit} method='PUT'>
                                 <h4 className='state__title'>Estado del juego</h4>
                                 <div className='state'>
-                                    <div className='pending__cb'>
-                                        <span>Pendiente</span>
-                                        <input type="checkbox" name="pendiente" id="pendiente"  defaultChecked/>
-                                    </div>
-                                    <div className='initiated__cb'>
-                                        <span>Iniciado</span>
-                                        <input type="checkbox" name="iniciado" id="iniciado"/>
-                                    </div>
-                                    <div className='complete__cb'>
-                                        <span>Completado</span>
-                                        <input type="checkbox" name="completado" id="completado"/>
-                                    </div>
+                                
+                                    <label htmlFor="pending">Pendiente</label>
+                                    <input type="radio" name="option" id="pending" value={'Pendiente'} onChange={inputChange} checked={state === "Pendiente"}/>
+                                
+                                    <label htmlFor="initiated">Iniciado</label>
+                                    <input type="radio" name="option" id="initiated" value={'Iniciado'} onChange={inputChange} checked={state === "Iniciado"}/>
+                                
+                                    <label htmlFor="completed">Completado</label>
+                                    <input type="radio" name="option" id="completed" value={'Completado'} onChange={inputChange} checked={state === "Completado"} />
+                                   
                                 </div>
                                 <div className='hours_played'>
                                     <h4>Registrar horas:</h4>
                                     <input type="text" placeholder='00:00' />
-                                    <button type="submit">Registrar</button>
-                                </div>
+                                </div> 
+                                <button type="submit">Registrar</button>
                             </form>
                         </div>
                     </div>
+                    
+                    
                 </div>
                     
             } 

@@ -13,6 +13,62 @@
 
 /* BARRA DE NAVEGACION */
 
+.bg-body-tertiary {
+  background-color: #12161d !important;
+}
+
+.nav-link.active.active {
+  color: #2a7eec;
+}
+
+.nav-link {
+  color: #2a7eec;
+}
+
+.nav-link:hover, 
+.nav-link.active.active:hover, 
+.nav-link.dropdown-toggle.active:hover  
+{
+  color: #426ada;
+}
+
+.nav-link.dropdown-toggle.active, 
+.nav-link.dropdown-toggle.active.show 
+{
+  color: #2a7eec;
+}
+
+.dropdown-menu.show {
+  background-color: #171d25;
+}
+
+.dropdown-item {
+  color: #2a7eec;
+}
+
+.form-control {
+  background-color: #12161d;
+  color: #fff;
+  border: 1px solid #2a7eec;
+}
+
+.form-control::placeholder {
+  color: #454647;
+}
+
+.form-control:focus {
+  background-color: #12161d;
+  color: #fff;
+}
+
+.btn-outline-success {
+  color: #2a7eec;
+}
+
+.btn-outline-success:hover{
+  color: #ffffff;
+  background-color: #2a7eec;
+}
 
 .navbar__logo {
   width: 50px;
@@ -167,6 +223,14 @@
   border-radius: 5px;
   color: #aa2424;
   background-color:#1d232e;
+}
+
+input[value="Iniciado"]{
+  color: #ecd82a;
+}
+
+input[value="Completado"]{
+  color: #3ddf7b;
 }
 
 .input__hours {

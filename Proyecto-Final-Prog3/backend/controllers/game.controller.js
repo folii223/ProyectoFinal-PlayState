@@ -1,5 +1,6 @@
 const {Game} = require('../models')
 
+
 const getGameByID = async (req,res) => {
     try {
         const {id} = req.params;
@@ -27,10 +28,10 @@ const getGame = async (req, res) => {
 
 const saveGame = async (req, res) => {
   try {
-    const { id, title, image, genres } = req.body;
+    const { id, title, image, genres, state, comment, hoursplayed } = req.body;
     const [game, created] = await Game.findOrCreate({
       where: { id },
-      defaults: { title, image, genres }
+      defaults: { title, image, genres, state, comment, hoursplayed }
     });
 
     if (created) {
@@ -45,7 +46,7 @@ const saveGame = async (req, res) => {
 
 const deleteGame = async (req, res) => {
     try {
-      const id = req.params.id;
+      const {id} = req.params;
       const deleted = await Game.destroy({
         where: {id:id}
       });
@@ -62,9 +63,31 @@ const deleteGame = async (req, res) => {
     }
 }
 
+const saveState = async(req,res) =>{
+  try {
+    const {id} = req.params;
+    const {state} = req.body;
+    const [stateSaved] = await Game.update(
+      {state:state},
+      {where: {id:id}}
+    );
+
+    console.log("req.body:", req.body);
+    if (stateSaved !== 0) {
+      res.status(200).json({message: "Estado actualizado correctamente:", state, "Juego con id": id});
+    }
+
+  } catch (error) {
+    console.log("Error al guardar el estado");
+    res.status(500).json({message: "No se pudo guardar el estado"})
+  }
+}
+
+
 module.exports = {
     getGameByID,
     saveGame,
     getGame, 
-    deleteGame
+    deleteGame,
+    saveState
 }

@@ -13,6 +13,7 @@ export const GetGamesComponent = () => {
                 id: game.id,
                 title: game.name,
                 image: game.background_image,
+                state: game.state,
                 genres: game.genres.map(g => g.name).join(','),
                 hoursplayed: game.playtime
             })

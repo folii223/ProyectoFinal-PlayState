@@ -5,21 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Game extends Model {
     static associate(models) {
-      // relacion N:N con User para favoritos
-      Game.belongsToMany(models.User, {
-        through: 'Favorite',
-        as: 'UserWhoFavorited',
-        foreignKey: 'gameId',
-        otherKey: 'userId'
-      });
-
-      // relacion N:N con User para la biblioteca
-      Game.belongsToMany(models.User, {
-        through: 'Library',
-        as: 'UserWhoOwn',
-        foreignKey: 'gameId',
-        otherKey: 'userId'
-      });
+      //Sin asociaciones
     }
   }
   Game.init({
@@ -33,12 +19,11 @@ module.exports = (sequelize, DataTypes) => {
     genres: DataTypes.STRING,
     state: { 
       type:DataTypes.STRING,
-      defaultValue: "No iniciado",
-      validate: {
-      isIn: [['Completado', 'En progreso', 'No iniciado']]
-    }},
-    hoursplayed: DataTypes.INTEGER
-  }, 
+      defaultValue: "Pendiente",
+      },
+    hoursplayed: DataTypes.INTEGER,
+    comment: DataTypes.STRING
+  },
   {
     sequelize,
     modelName: 'Game',

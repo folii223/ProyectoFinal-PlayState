@@ -26,7 +26,7 @@ export const LibraryScreen = () => {
   };
 
   useEffect(() =>{
-    const fetchLibrary = async (game) => {
+    const fetchLibrary = async () => {
     try{
       const res = await fetch ('http://localhost:3001/api/games');
       const data = await res.json();
@@ -65,7 +65,7 @@ export const LibraryScreen = () => {
                   </div>
                 </NavLink>
                 <div className="action__container">
-                    <input className='input__state' type="text" value={"Pendiente"} disabled />
+                    <input className='input__state' type="text" value={game.state} disabled />
                     <input className='input__hours' type="text" value={"0 hs"} disabled />
                 </div>
                 <button onClick={() => handleDeleteGame(game.id)} className="delete__btn"><i className="fa-solid fa-trash"></i></button>
