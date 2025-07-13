@@ -65,8 +65,8 @@ export const LibraryScreen = () => {
                   </div>
                 </NavLink>
                 <div className="action__container">
-                    <input className='input__state' type="text" value={game.state} disabled />
-                    <input className='input__hours' type="text" value={"0 hs"} disabled />
+                    <input className='input__state--disabled' type="text" value={game.state} disabled />
+                    <input className='input__hours--disabled' type="text" value={"0 hs"} disabled />
                 </div>
                 <button onClick={() => handleDeleteGame(game.id)} className="delete__btn"><i className="fa-solid fa-trash"></i></button>
               </li>

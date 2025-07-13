@@ -95,21 +95,24 @@ export const InfoScreen = () => {
                                 <h4 className='state__title'>Estado del juego</h4>
                                 <div className='state'>
                                 
-                                    <label htmlFor="pending">Pendiente</label>
-                                    <input type="radio" name="option" id="pending" value={'Pendiente'} onChange={inputChange} checked={state === "Pendiente"}/>
-                                
-                                    <label htmlFor="initiated">Iniciado</label>
-                                    <input type="radio" name="option" id="initiated" value={'Iniciado'} onChange={inputChange} checked={state === "Iniciado"}/>
-                                
-                                    <label htmlFor="completed">Completado</label>
-                                    <input type="radio" name="option" id="completed" value={'Completado'} onChange={inputChange} checked={state === "Completado"} />
-                                   
+                                    <div className='select__state'>
+                                        <input className='input__state' type="radio" name="option" id="pending" value={'Pendiente'} onChange={inputChange} checked={state === "Pendiente"}/>
+                                        <label className='lbl__input' htmlFor="pending">Pendiente</label>
+                                    </div>
+                                    <div className='select__state'>    
+                                        <input className='input__state' type="radio" name="option" id="initiated" value={'Iniciado'} onChange={inputChange} checked={state === "Iniciado"}/>
+                                        <label className='lbl__input' htmlFor="initiated">Iniciado</label>
+                                    </div>  
+                                    <div className='select__state'> 
+                                        <input className='input__state' type="radio" name="option" id="completed" value={'Completado'} onChange={inputChange} checked={state === "Completado"} />
+                                        <label className='lbl__input' htmlFor="completed">Completado</label>
+                                    </div> 
                                 </div>
-                                <div className='hours_played'>
+                                <div className='hours__register'>
                                     <h4>Registrar horas:</h4>
-                                    <input type="text" placeholder='00:00' />
+                                    <input className='input__hour' type="text" placeholder='00:00' />
                                 </div> 
-                                <button type="submit">Registrar</button>
+                                <button className='submit__state' type="submit">Registrar</button>
                             </form>
                         </div>
                     </div>
