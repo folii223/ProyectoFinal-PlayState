@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 
 export const InfoScreen = () => {
 
-
     const {gameID} = useGamesID()
     const [state, setState] = useState("");
     const [save, setSave] = useState(false);
@@ -20,12 +19,9 @@ export const InfoScreen = () => {
         setState(value);
     }
 
+    //Actualizar el estado
     const updateState = async (id) => {
         try {
-            // Me aseguro de que el juego existe en la base de datos antes de actualizar el estado
-            await ensureGameExists(id);
-            
-            //Actualizar el estado
             const res = await fetch(`http://localhost:3001/api/games/${id}`, {
                 method: 'PUT',
                 headers: {'Content-Type':'application/json'},
@@ -39,8 +35,7 @@ export const InfoScreen = () => {
         } catch (error) {
             console.error("Error al actualizar estado:", error);
             alert("Error al actualizar el estado");
-        }
-        
+        }  
     }
 
     const handleCommentSubmit = async(e) => {
@@ -58,12 +53,9 @@ export const InfoScreen = () => {
         setIsEditingComment(true);
     }
 
+    //Guardar el comentario
     const saveComment = async (id) => {
         try {
-            // Me aseguro de que el juego existe en la base de datos
-            await ensureGameExists(id);
-            
-            //Guardar el comentario
             const res = await fetch(`http://localhost:3001/api/games/${id}/comment`, {
                 method: 'PUT',
                 headers: {'Content-Type':'application/json'},
@@ -78,37 +70,6 @@ export const InfoScreen = () => {
         } catch (error) {
             console.error("Error al guardar comentario:", error);
             alert("Error al guardar el comentario");
-        }
-    }
-
-    const ensureGameExists = async (id) => {
-        try {
-            // Verificar si el juego ya existe en la base de datos
-            const checkRes = await fetch(`http://localhost:3001/api/games/${id}`);
-            
-            if (!checkRes.ok) {
-                // Si no existe, crearlo primero
-                const saveRes = await fetch('http://localhost:3001/api/games', {
-                    method: 'POST',
-                    headers: {'Content-Type':'application/json'},
-                    body: JSON.stringify({
-                        id: gameID.id,
-                        title: gameID.name,
-                        image: gameID.background_image,
-                        genres: gameID.genres?.map(g => g.name).join(',') || '',
-                        state: 'Pendiente',
-                        comment: '',
-                        hoursplayed: gameID.playtime || 0
-                    })
-                });
-                
-                if (!saveRes.ok) {
-                    throw new Error('No se pudo crear el juego en la base de datos');
-                }
-            }
-        } catch (error) {
-            console.error("Error al verificar/crear juego:", error);
-            throw error;
         }
     }
 
@@ -147,8 +108,6 @@ export const InfoScreen = () => {
 
     }, [gameID]);
     
-
-
     return (
         <>
             {

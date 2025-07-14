@@ -72,7 +72,6 @@ const saveState = async(req,res) =>{
       {where: {id:id}}
     );
 
-    console.log("req.body:", req.body);
     if (stateSaved !== 0) {
       res.status(200).json({message: "Estado actualizado correctamente:", state, "Juego con id": id});
     }
