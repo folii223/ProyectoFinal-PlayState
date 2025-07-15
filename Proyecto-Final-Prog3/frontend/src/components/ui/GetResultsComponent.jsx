@@ -18,7 +18,7 @@ export const GetResultsComponent = () => {
                 title: game.name,
                 image: game.background_image,
                 genres: game.genres.map(g => g.name).join(','),
-                hoursplayed: game.playtime
+                playtime: game.playtime
             })
         })
 
@@ -30,11 +30,11 @@ export const GetResultsComponent = () => {
         <div className="game__container">
         <h1 className="game__title">{query ? `Resultados para ${query}` : genre? `Resultados para ${genre}` : 'Busqueda'}</h1>
         {loading ? (
-            <p>Cargando datos...</p>
+            <p >Cargando datos...</p>
         ) : games.length > 0 ? (
             <ul className="game">
             {games.map((game) => (
-                <li className="game__li">
+                <li key={game.id} className="game__li">
                 <NavLink to={`/info/${game.id}`}>
                     <div className="game__info">
                     <img key={game.id} className="game__img" src={game.background_image} alt={game.name} />

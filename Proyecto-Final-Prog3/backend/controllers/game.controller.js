@@ -68,10 +68,9 @@ const saveState = async(req,res) =>{
     const {id} = req.params;
     const {state, hoursplayed} = req.body;
     const [stateSaved] = await Game.update(
-      {state:state},
+      {state:state, hoursplayed:hoursplayed},
       {where: {id:id}}
     );
-
     if (stateSaved !== 0) {
       res.status(200).json({message: "Estado actualizado correctamente:", state, "Horas actualizadas correctamente! ":hoursplayed, "Juego con id": id});
     }

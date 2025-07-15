@@ -40,7 +40,8 @@ export const useGamesID = () => {
     const gameWithLocalData = useMemo(() => ({
         ...gameID,
         comment: localGameData?.comment || "",
-        state: localGameData?.state || "Pendiente"
+        state: localGameData?.state || "Pendiente",
+
     }), [gameID, localGameData]);
 
     return {gameID: gameWithLocalData};

@@ -222,6 +222,7 @@
   border: none;
   border-radius: 5px;
   color: #aa2424;
+  font-weight: 500;
   background-color:#1d232e;
 }
 
@@ -239,7 +240,8 @@ input[value="Completado"]{
   padding: 5px;
   border: none;
   border-radius: 5px;
-  color: #aa2424;
+  color: #fff;
+  font-weight: 500;
   background-color:#1d232e;
 }
 
@@ -530,9 +532,9 @@ footer {
     align-items: center;
   }
 
-  /*.info__principal, .platform__title, .platform {
+  .info__principal, .platform__title, .platform {
     justify-content: center;
-  }*/
+  }
 }
 
 /* tablet: 601px hasta 1024px */
@@ -565,9 +567,9 @@ footer {
     gap: 30px;
   }
 
-  /*.platform, .platform__title{
+  .platform, .platform__title{
     justify-content: center;
-  }*/
+  }
 
   .hours__register, .input__hour, .submit__state{
     justify-content: center;

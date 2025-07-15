@@ -13,8 +13,15 @@
 2. Entrar a la carpeta llamada ***Proyecto-Final-Prog3***
 3. Aplicar en la terminal de VS el comando: ***docker-compose up***
 4. Si sale todo bien deberia mostrar esta pantalla al finalizar: 
-![compiled-success](/Proyecto-Final-Prog3/capturas-proyecto/capturas-proyecto/compiled-success.png)
+![compiled-success](/Proyecto-Final-Prog3/capturas-proyecto/compiled-success.png)
 5. Entramos a la ruta local: *http://localhost:3000*
+
+**IMPORTANTE**: Si por casualidad no llegara a responder el contenedor del frontend en docker desktop es porque por algun motivo no instala react-scripts, entonces lo que se deberia hacer en ese caso es: 
+- Ingresar a la carpeta frontend desde la consola de VS
+- Ejecutar el comando: ***npm i react-scripts@latest*** (Sin eliminar las vulnerabilidades)
+- Bajar docker y borrar volumenes con el comando: ***docker-compose down -v***
+- Volver a construir el contenedor con: ***docker-compose build***
+- Una vez que termine deberia aparecer la compilacion como se ve en la imagen de arriba.
 
 ## RECURSOS UTILIZADOS
 
@@ -26,6 +33,7 @@ Para este proyecto utilizamos una API externa proveniente de una pagina llamada 
 - generos
 - fecha de lanzamiento
 - Calificacion global
+- Horas totales 
 
 A continuacion dejamos el link de la pagina:
 API RAWG: https://rawg.io/apidocs
@@ -56,7 +64,7 @@ Esta carpeta solamente contiene el archivo index.js (ya creado anteriormente), d
 
 **DATABASE**
 
-Los datos son almacenados en POSTGREES (***http://localhost:5050***), el cual solamente tiene una sola tabla llamada **"Games"**. Esta tabla guarda:
+Los datos son almacenados en POSTGRES (***http://localhost:5050***), el cual solamente tiene una sola tabla llamada **"Games"**. Esta tabla guarda:
 - ID (API RAWG)
 - Titulo
 - Imagen
@@ -116,4 +124,4 @@ Una vez registrado el estado y las horas, **en la biblioteca se marcaran tambien
 
 ## CONCLUSIONES
 
-Este proyecto funciona muy bien para llevar acabo un registro de los juegos que se han jugado o se quieren jugar mas adelante, es algo asi como un diario personal. Espero que les guste probar este proyecto tanto como nos gusto a nosotros llevarlo a cabo.
+Este proyecto se encarga de llevar a cabo un registro de los juegos que se han guardado, mas que nada para tener un control y una lista definida de aquellos juegos que te gustaron o no, algo asi como un diario personal. Espero que les guste probar este proyecto tanto como nos gusto a nosotros llevarlo a cabo.

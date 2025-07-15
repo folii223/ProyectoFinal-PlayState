@@ -25,7 +25,6 @@ export const InfoScreen = () => {
         }else if (value === "Completado"){
             setHours(gameID.playtime);
         }
-    
     }
 
     //Actualizar el estado
@@ -53,9 +52,8 @@ export const InfoScreen = () => {
             const valueHours = parseInt(e.target.value) || 0;
             setHours(valueHours)
         }
+        
     }
-
-    
 
     const handleCommentSubmit = async(e) => {
         e.preventDefault();

@@ -21,7 +21,11 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       defaultValue: "Pendiente",
       },
-    hoursplayed: DataTypes.INTEGER,
+    hoursplayed: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    playtime: DataTypes.INTEGER,
     comment: DataTypes.STRING
   },
   {

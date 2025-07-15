@@ -25,6 +25,9 @@ module.exports = {
       hoursplayed: {
         type: Sequelize.INTEGER
       },
+      playtime: {
+        type: Sequelize.INTEGER
+      },
       comment: {
         type: Sequelize.STRING
       },
