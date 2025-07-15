@@ -19,6 +19,13 @@ export const InfoScreen = () => {
     const inputChange = async (e) => {
         const value = e.target.value;
         setState(value);
+        
+        if (value === "Pendiente") {
+            setHours(0);
+        }else if (value === "Completado"){
+            setHours(gameID.playtime);
+        }
+    
     }
 
     //Actualizar el estado
@@ -41,17 +48,10 @@ export const InfoScreen = () => {
         }  
     }
 
-    const inputHoursChange = async (e) => {
-        const valueHours = parseInt(e.target.value);
-        if (state === "Pendiente"){
-            setHours (0)
-            valueHours = hours
-        }else if (state === "Iniciado"){
-            
+    const inputHoursChange = (e) => {
+        if (state === "Iniciado"){
+            const valueHours = parseInt(e.target.value) || 0;
             setHours(valueHours)
-        }else if (state === "Completado"){
-            setHours (gameID.playtime)
-            valueHours = hours
         }
     }
 
