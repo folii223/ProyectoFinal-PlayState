@@ -66,14 +66,14 @@ const deleteGame = async (req, res) => {
 const saveState = async(req,res) =>{
   try {
     const {id} = req.params;
-    const {state} = req.body;
+    const {state, hoursplayed} = req.body;
     const [stateSaved] = await Game.update(
       {state:state},
       {where: {id:id}}
     );
 
     if (stateSaved !== 0) {
-      res.status(200).json({message: "Estado actualizado correctamente:", state, "Juego con id": id});
+      res.status(200).json({message: "Estado actualizado correctamente:", state, "Horas actualizadas correctamente! ":hoursplayed, "Juego con id": id});
     }
 
   } catch (error) {

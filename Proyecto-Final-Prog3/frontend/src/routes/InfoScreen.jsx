@@ -6,8 +6,10 @@ export const InfoScreen = () => {
     const {gameID} = useGamesID()
     const [state, setState] = useState("");
     const [save, setSave] = useState(false);
+    const [hours, setHours] = useState(0);
     const [comment, setComment] = useState("");
     const [isEditingComment, setIsEditingComment] = useState(false);
+
 
     const handleSubmit = async(e)=> {
         e.preventDefault();
@@ -26,7 +28,8 @@ export const InfoScreen = () => {
                 method: 'PUT',
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify({
-                    state: state
+                    state: state,
+                    hoursplayed: hours
                 })
             })
             const data = await res.json();
@@ -37,6 +40,22 @@ export const InfoScreen = () => {
             alert("Error al actualizar el estado");
         }  
     }
+
+    const inputHoursChange = async (e) => {
+        const valueHours = parseInt(e.target.value);
+        if (state === "Pendiente"){
+            setHours (0)
+            valueHours = hours
+        }else if (state === "Iniciado"){
+            
+            setHours(valueHours)
+        }else if (state === "Completado"){
+            setHours (gameID.playtime)
+            valueHours = hours
+        }
+    }
+
+    
 
     const handleCommentSubmit = async(e) => {
         e.preventDefault();
@@ -194,7 +213,7 @@ export const InfoScreen = () => {
                                     </div>
                                     <div className='hours__register'>
                                         <h4>Registrar horas:</h4>
-                                        <input className='input__hour' type="text" placeholder='00:00' />
+                                        <input className='input__hour' type="text" placeholder='00:00' value={hours} onChange={inputHoursChange}/>
                                     </div> 
                                     <button className='submit__state' type="submit">Registrar</button>
                                 </form>
